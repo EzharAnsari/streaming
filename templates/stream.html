@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title id="title">{{ directory }}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+        <script src="{% static 'jquery.min.js' %}"></script>
+        <script src="{% static 'bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'stream.css' %}">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div>
+                <h1><b>Index of {{ directory }}</b></h1>
+                {% if directory != "/" %}
+                    <div class="col-sm-12 row" style="padding-bottom:20px">
+                            <b><a class="up" style="padding-left:20px" href="../">[parent directory]</a></b>
+                    </div>
+                {% endif %}
+            </div>
+            <table style="width:100%">
+                <thead style="background-color:rgba(0,0,0,0.5);color: black">
+                    <tr>
+                        <th style="width:70%"><b style="font-size:20px">Name</b></th>
+                        <th style="width:10%"><b style="font-size:20px">Size</b></th>
+                        <th style="width:20%"><b style="font-size:20px">Last Modified</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in file_list %}
+                        <tr>
+                            <th style="width:70%">
+                                <a class="{{f.type}}" style="padding-left:20px" href="/{{ directory }}\{{f.name}}">{{f.name}}</a>
+                            </th>
+                            <th style="width:10%">{{f.size}}</th>
+                            <th style="width:20%">{{f.lastModified}}</th>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
